@@ -1,2 +1,2 @@
-# plotly-s10
-plotly for S10
+# plotly-power
+plotly for power logging
