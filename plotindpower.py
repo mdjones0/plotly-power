@@ -67,8 +67,8 @@ LOGDIR = "/srv/cosmos/logging/pdupower"
 # turning gc off does not seem to help
 #gc.disable()
 #  pre-defining lists really helped, now constant per file
-for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210731"), key=os.path.getmtime):
-#	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime):
+for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-202107*"), key=os.path.getmtime) + \
+	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime):
     t0 = time.time()
     with open(infilename) as infile:
         allrecords = infile.readlines()[:] # no header
@@ -133,8 +133,8 @@ trace4 = go.Scattergl(
 
 #data = go.Scatter([trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9,trace10,trace11,trace12])
 #data = [trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9,trace10,trace11,trace12,trace13,trace14,trace15,trace16]
-#data = [trace1,trace2,trace3,trace4]
-data = [trace1]
+data = [trace1,trace2,trace3,trace4]
+#data = [trace1]
 #print(data)
 layout = go.Layout(title="Industry cluster power",xaxis={'title':'datetime'},yaxis={'title':'kW'})
 figure = go.Figure(data=data,layout=layout)
