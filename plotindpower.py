@@ -46,16 +46,16 @@ tz = pytz.timezone('America/New_York')
 #
 # size of dicts, we get one value per rack per min, or 1440 per day,
 #  525600 per 365d
-rack_load = dict.fromkeys(("m22","h22","h23","h24","h25", \
+rack_load = {new_list: [] for new_list in ("m22","h22","h23","h24","h25", \
 	"p22","p23","p24","p25","p26","p27","p28", \
 	"q06","q07","q08","q09", \
 	"u22","u23","u24","u25","u26","u27","u28", \
-	"v10","v11"),[]) # key = rack, value = load in kW
-rack_time = dict.fromkeys(("m22","h22","h23","h24","h25", \
+	"v10","v11")} # key = rack, value = load in kW
+rack_time = {new_list: [] for new_list in ("m22","h22","h23","h24","h25", \
 	"p22","p23","p24","p25","p26","p27","p28", \
 	"q06","q07","q08","q09", \
 	"u22","u23","u24","u25","u26","u27","u28", \
-	"v10","v11"),[]) # key = rack, value = load in kW
+	"v10","v11")}
 #rack_time = dict()
 #rack_load = dict()
 #rack_time2 = dict()
@@ -103,7 +103,7 @@ for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-2021073
     #print("1. %f secs for file %s" % (t3-t2,infilename))
 
 #gc.enable()
-#print(rack_time["h22"],rack_load["h22"])
+print(rack_time["h22"],rack_load["h22"])
 trace1 = go.Scattergl(
     x=rack_time["h22"],
     y=rack_load["h22"],
