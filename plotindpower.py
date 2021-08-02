@@ -49,7 +49,8 @@ rack_load2 = dict()
 
 LOGDIR = "/srv/cosmos/logging/pdupower"
 # this parsing is really slow, try pandas to see if it speeds up?
-for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-2021072*"), key=os.path.getmtime):
+for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-202107*"), key=os.path.getmtime) + \
+	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime):
     t0 = time.time()
     with open(infilename) as infile:
         allrecords = infile.readlines()[:] # no header
