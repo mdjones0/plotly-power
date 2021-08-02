@@ -103,7 +103,7 @@ for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-2021073
     #print("1. %f secs for file %s" % (t3-t2,infilename))
 
 #gc.enable()
-print(rack_time["h22"],rack_load["h22"])
+#print(rack_time["h22"],rack_load["h22"])
 trace1 = go.Scattergl(
     x=rack_time["h22"],
     y=rack_load["h22"],
@@ -133,7 +133,8 @@ trace4 = go.Scattergl(
 
 #data = go.Scatter([trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9,trace10,trace11,trace12])
 #data = [trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9,trace10,trace11,trace12,trace13,trace14,trace15,trace16]
-data = [trace1,trace2,trace3,trace4]
+#data = [trace1,trace2,trace3,trace4]
+data = [trace1]
 #print(data)
 layout = go.Layout(title="Industry cluster power",xaxis={'title':'datetime'},yaxis={'title':'kW'})
 figure = go.Figure(data=data,layout=layout)
