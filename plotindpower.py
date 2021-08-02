@@ -21,6 +21,7 @@ import chart_studio.plotly as py
 import plotly.graph_objs as go
 import plotly.io as pio
 #import chart_studio.graph_objs as go
+import gc
 
 from datetime import datetime
 import pytz
@@ -42,15 +43,32 @@ py.plotly.tools.set_credentials_file(username='jonesm', api_key='f91fad0x9z')
 
 tz = pytz.timezone('America/New_York')
 
-rack_load = dict() # key = rack, value = load in kW
-rack_time = dict()
-rack_time2 = dict()
-rack_load2 = dict()
+#
+# size of dicts, we get one value per rack per min, or 1440 per day,
+#  525600 per 365d
+rack_load = dict.fromkeys(("m22","h22","h23","h24","h25", \
+	"p22","p23","p24","p25","p26","p27","p28", \
+	"q06","q07","q08","q09", \
+	"u22","u23","u24","u25","u26","u27","u28", \
+	"v10","v11"),[]) # key = rack, value = load in kW
+rack_time = dict.fromkeys(("m22","h22","h23","h24","h25", \
+	"p22","p23","p24","p25","p26","p27","p28", \
+	"q06","q07","q08","q09", \
+	"u22","u23","u24","u25","u26","u27","u28", \
+	"v10","v11"),[]) # key = rack, value = load in kW
+#rack_time = dict()
+#rack_load = dict()
+#rack_time2 = dict()
+#rack_load2 = dict()
 
 LOGDIR = "/srv/cosmos/logging/pdupower"
 # this parsing is really slow, try pandas to see if it speeds up?
-for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-202107*"), key=os.path.getmtime) + \
-	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime):
+# https://stackoverflow.com/questions/2473783/is-there-a-way-to-circumvent-python-list-append-becoming-progressively-slower
+# turning gc off does not seem to help
+#gc.disable()
+#  pre-defining lists really helped, now constant per file
+for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210731"), key=os.path.getmtime):
+#	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime):
     t0 = time.time()
     with open(infilename) as infile:
         allrecords = infile.readlines()[:] # no header
@@ -64,8 +82,8 @@ for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-202107*
             date_string = dt.strftime('%Y-%m-%dT%H:%M:%S')
             rack = line_words[1]
             load = float(line_words[2])
-            rack_load[rack] = rack_load.get(rack, []) + [load]
-            rack_time[rack] = rack_time.get(rack, []) + [date_string]
+            rack_load[rack].append(load)
+            rack_time[rack].append(date_string)
 
     t1=time.time()
     print("0. %f secs for file %s" % (t1-t0,infilename))
@@ -84,6 +102,7 @@ for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-202107*
     #t3 = time.time()
     #print("1. %f secs for file %s" % (t3-t2,infilename))
 
+#gc.enable()
 #print(rack_time["h22"],rack_load["h22"])
 trace1 = go.Scattergl(
     x=rack_time["h22"],
