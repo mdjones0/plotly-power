@@ -50,12 +50,12 @@ rack_load = {new_list: [] for new_list in ("m22","h22","h23","h24","h25", \
 	"p22","p23","p24","p25","p26","p27","p28", \
 	"q06","q07","q08","q09", \
 	"u22","u23","u24","u25","u26","u27","u28", \
-	"v10","v11")} # key = rack, value = load in kW
+	"v07","v10","v11")} # key = rack, value = load in kW
 rack_time = {new_list: [] for new_list in ("m22","h22","h23","h24","h25", \
 	"p22","p23","p24","p25","p26","p27","p28", \
 	"q06","q07","q08","q09", \
 	"u22","u23","u24","u25","u26","u27","u28", \
-	"v10","v11")}
+	"v07","v10","v11")}
 #rack_time = dict()
 #rack_load = dict()
 #rack_time2 = dict()
