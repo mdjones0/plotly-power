@@ -68,7 +68,8 @@ LOGDIR = "/srv/cosmos/logging/pdupower"
 #gc.disable()
 #  pre-defining lists really helped, now constant per file
 for infilename in sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-202107*"), key=os.path.getmtime) + \
-	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime):
+	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20210[8-9]*"), key=os.path.getmtime) + \
+	sorted(glob.glob("/srv/cosmos/logging/pdudata/pdupower-20211[0-2]*"), key=os.path.getmtime):
     t0 = time.time()
     with open(infilename) as infile:
         allrecords = infile.readlines()[:] # no header
