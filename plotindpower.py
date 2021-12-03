@@ -22,6 +22,7 @@ import plotly.graph_objs as go
 import plotly.io as pio
 #import chart_studio.graph_objs as go
 import gc
+import csv
 
 from datetime import datetime
 import pytz
@@ -130,7 +131,13 @@ trace4 = go.Scattergl(
     mode='lines+markers'
 )
 	
-# output csv
+# output csv - don't need to do this often
+#csvfile = open("indpower.csv","w")
+#writer = csv.writer(csvfile, delimiter=",",quotechar='"',quoting=csv.QUOTE_NONNUMERIC)
+#dicts = rack_time["h22"],rack_load["h22"],rack_time["h23"],rack_load["h23"],rack_time["h24"],rack_load["h24"],rack_time["h25"],rack_load["h25"]
+#writer.writerow(['h22 time','h22 power','h23 time','h23 power','h24 time','h24 power','h25 time','h25 power'])
+#for timeid in rack_time["h22"]:
+#    writer.writerow(d[timeid] for d in dicts)
 
 #data = go.Scatter([trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9,trace10,trace11,trace12])
 #data = [trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9,trace10,trace11,trace12,trace13,trace14,trace15,trace16]
